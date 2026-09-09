@@ -1,0 +1,1 @@
+import { Suspense } from "react";import { MyProjects } from "@/components/fresherdesk/student-pages";export const metadata={title:"My projects"};export default function Page(){return <Suspense fallback={<p>Loading your projects…</p>}><MyProjects/></Suspense>;}

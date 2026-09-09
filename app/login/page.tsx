@@ -1,0 +1,1 @@
+import { PublicShell } from "@/components/fresherdesk/public-shell";import { AccountForm } from "@/components/fresherdesk/account-form";export const metadata={title:"Log in"};export default function Page(){return <PublicShell><AccountForm/></PublicShell>;}
