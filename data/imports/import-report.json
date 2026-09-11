@@ -1,0 +1,311 @@
+{
+  "timestamp": "2026-09-11T08:29:24.401Z",
+  "sourceFile": "data/imports/Book1.xlsx",
+  "totalSourceRows": 32,
+  "distinctListingLinks": 32,
+  "totalUniqueJobs": 14,
+  "jobCount": 13,
+  "internshipCount": 1,
+  "expiredCount": 7,
+  "unverifiedCount": 7,
+  "activeCount": 0,
+  "recordsNeedingReview": [
+    {
+      "id": "elitmus-33259",
+      "company": "eLitmus Evaluation Pvt Ltd",
+      "role": "Software Developer/Associate consultant",
+      "type": "Job",
+      "status": "expired",
+      "flags": [
+        "Compensation note preserved: Internship Stipend is ₹ 29,000 per month"
+      ],
+      "eventsCount": 1
+    },
+    {
+      "id": "elitmus-33274",
+      "company": "Fission Labs",
+      "role": "Associate Software Engineer",
+      "type": "Job",
+      "status": "unverified",
+      "flags": [
+        "Mixed event statuses: some events are Expired while others are Not stated.",
+        "Compensation note preserved: Stipend ₹15,000 /month"
+      ],
+      "eventsCount": 2
+    },
+    {
+      "id": "elitmus-33235",
+      "company": "MountBlue Technologies Pvt Ltd",
+      "role": "Software Engineer Trainee",
+      "type": "Job",
+      "status": "unverified",
+      "flags": [
+        "Mixed event statuses: some events are Expired while others are Not stated."
+      ],
+      "eventsCount": 5
+    },
+    {
+      "id": "elitmus-33280",
+      "company": "NAB Innovation Centre India",
+      "role": "Software Engineer(Apprentice)",
+      "type": "Job",
+      "status": "expired",
+      "flags": [
+        "Compensation note preserved: annum"
+      ],
+      "eventsCount": 1
+    },
+    {
+      "id": "elitmus-33299",
+      "company": "Pratishthan Software Ventures Pvt. Ltd.",
+      "role": "Software Intern",
+      "type": "Job",
+      "status": "unverified",
+      "flags": [
+        "Role title says \"Intern\" but source Employment Type is \"Full Time\". Preserved as Job, flagged for review.",
+        "Compensation note preserved: Internship Stipend is ₹ 40,000 per month"
+      ],
+      "eventsCount": 1
+    },
+    {
+      "id": "elitmus-33273",
+      "company": "STT Global Data Centres India Pvt. Ltd.",
+      "role": "Graduate Trainee Program",
+      "type": "Job",
+      "status": "unverified",
+      "flags": [
+        "Mixed event statuses: some events are Expired while others are Not stated.",
+        "Compensation note preserved: ₹ 50,000 per month stipend (during apprenticeship)"
+      ],
+      "eventsCount": 12
+    },
+    {
+      "id": "elitmus-33269",
+      "company": "YugaByte Software Private Limited",
+      "role": "SDET (Software Development Engineer in Test)",
+      "type": "Internship",
+      "status": "unverified",
+      "flags": [
+        "Compensation note preserved: CTC could be more if Stock upside ends up being higher than assumed",
+        "Referral reward preserved: ₹25,000"
+      ],
+      "eventsCount": 3
+    }
+  ],
+  "jobsSummary": [
+    {
+      "id": "elitmus-33293",
+      "company": "Curatech Private Limited",
+      "role": "Software Engineer",
+      "type": "Job",
+      "location": "Bangalore, Karnataka, India",
+      "status": "expired",
+      "eventsCount": 1,
+      "batch": "Fresher (2026)",
+      "compensationRaw": 800000,
+      "stipend": null,
+      "referral": null,
+      "flags": []
+    },
+    {
+      "id": "elitmus-33259",
+      "company": "eLitmus Evaluation Pvt Ltd",
+      "role": "Software Developer/Associate consultant",
+      "type": "Job",
+      "location": "Bangalore, Karnataka, India",
+      "status": "expired",
+      "eventsCount": 1,
+      "batch": "Fresher (2026)",
+      "compensationRaw": "₹ 12,00,000",
+      "stipend": 29000,
+      "referral": null,
+      "flags": [
+        "Compensation note preserved: Internship Stipend is ₹ 29,000 per month"
+      ]
+    },
+    {
+      "id": "elitmus-33188",
+      "company": "eLitmus Evaluation Pvt Ltd",
+      "role": "Software Developer/Associate Consultant",
+      "type": "Job",
+      "location": "Bangalore, Karnataka, India",
+      "status": "expired",
+      "eventsCount": 1,
+      "batch": "Fresher (2025)",
+      "compensationRaw": 1200000,
+      "stipend": null,
+      "referral": null,
+      "flags": []
+    },
+    {
+      "id": "elitmus-33274",
+      "company": "Fission Labs",
+      "role": "Associate Software Engineer",
+      "type": "Job",
+      "location": "Hyderabad, Telangana, India",
+      "status": "unverified",
+      "eventsCount": 2,
+      "batch": "Fresher (2026)",
+      "compensationRaw": "₹ 5,50,000 - ₹ 6,50,000",
+      "stipend": 15000,
+      "referral": null,
+      "flags": [
+        "Mixed event statuses: some events are Expired while others are Not stated.",
+        "Compensation note preserved: Stipend ₹15,000 /month"
+      ]
+    },
+    {
+      "id": "elitmus-33300",
+      "company": "KLA, India",
+      "role": "Engineer - Product applications",
+      "type": "Job",
+      "location": "Chennai, Tamil Nadu, India",
+      "status": "unverified",
+      "eventsCount": 1,
+      "batch": "Fresher (2024 to 2026)",
+      "compensationRaw": null,
+      "stipend": null,
+      "referral": null,
+      "flags": []
+    },
+    {
+      "id": "elitmus-33291",
+      "company": "KLA, India",
+      "role": "Software Quality Engineer",
+      "type": "Job",
+      "location": "Chennai, Tamil Nadu, India",
+      "status": "expired",
+      "eventsCount": 1,
+      "batch": "Fresher (2024 to 2025)",
+      "compensationRaw": null,
+      "stipend": null,
+      "referral": null,
+      "flags": []
+    },
+    {
+      "id": "elitmus-33284",
+      "company": "Lifesigns Medtech Private Limited",
+      "role": "Software Engineer (Development/ QA/ Support)",
+      "type": "Job",
+      "location": "Bangalore, Karnataka, India",
+      "status": "expired",
+      "eventsCount": 1,
+      "batch": "Fresher (2026)",
+      "compensationRaw": "₹ 4,00,000 - ₹ 6,50,000",
+      "stipend": null,
+      "referral": null,
+      "flags": []
+    },
+    {
+      "id": "elitmus-33235",
+      "company": "MountBlue Technologies Pvt Ltd",
+      "role": "Software Engineer Trainee",
+      "type": "Job",
+      "location": "Bangalore, Delhi, Mumbai, Pune, Hyderabad, Chennai, Karnataka, India",
+      "status": "unverified",
+      "eventsCount": 5,
+      "batch": "Fresher (2022 to 2026)",
+      "compensationRaw": 401000,
+      "stipend": null,
+      "referral": null,
+      "flags": [
+        "Mixed event statuses: some events are Expired while others are Not stated."
+      ]
+    },
+    {
+      "id": "elitmus-33280",
+      "company": "NAB Innovation Centre India",
+      "role": "Software Engineer(Apprentice)",
+      "type": "Job",
+      "location": "Gurugram, Haryana, India",
+      "status": "expired",
+      "eventsCount": 1,
+      "batch": "Fresher (2025)",
+      "compensationRaw": "₹ 9,60,000",
+      "stipend": null,
+      "referral": null,
+      "flags": [
+        "Compensation note preserved: annum"
+      ]
+    },
+    {
+      "id": "elitmus-33223",
+      "company": "Pratishthan Software Ventures Pvt. Ltd.",
+      "role": "Software Engineer",
+      "type": "Job",
+      "location": "Bangalore, Karnataka, India",
+      "status": "expired",
+      "eventsCount": 1,
+      "batch": "Fresher (2024 to 2025)",
+      "compensationRaw": 625000,
+      "stipend": null,
+      "referral": null,
+      "flags": []
+    },
+    {
+      "id": "elitmus-33299",
+      "company": "Pratishthan Software Ventures Pvt. Ltd.",
+      "role": "Software Intern",
+      "type": "Job",
+      "location": "Bangalore, Karnataka, India",
+      "status": "unverified",
+      "eventsCount": 1,
+      "batch": "Fresher (2026)",
+      "compensationRaw": "₹ 6,25,000",
+      "stipend": 40000,
+      "referral": null,
+      "flags": [
+        "Role title says \"Intern\" but source Employment Type is \"Full Time\". Preserved as Job, flagged for review.",
+        "Compensation note preserved: Internship Stipend is ₹ 40,000 per month"
+      ]
+    },
+    {
+      "id": "elitmus-33273",
+      "company": "STT Global Data Centres India Pvt. Ltd.",
+      "role": "Graduate Trainee Program",
+      "type": "Job",
+      "location": "Bangalore, Chennai, Delhi(NCR), Hyderabad, Kolkata, Mumbai, Pune",
+      "status": "unverified",
+      "eventsCount": 12,
+      "batch": "Fresher (2026)",
+      "compensationRaw": "₹ 10,00,000",
+      "stipend": 50000,
+      "referral": null,
+      "flags": [
+        "Mixed event statuses: some events are Expired while others are Not stated.",
+        "Compensation note preserved: ₹ 50,000 per month stipend (during apprenticeship)"
+      ]
+    },
+    {
+      "id": "elitmus-33262",
+      "company": "Telestream",
+      "role": "Junior Software Engineer",
+      "type": "Job",
+      "location": "Bangalore, Karnataka, India",
+      "status": "unverified",
+      "eventsCount": 1,
+      "batch": "Fresher (2024 to 2025)",
+      "compensationRaw": "₹ 7,50,000 - ₹ 9,00,000",
+      "stipend": null,
+      "referral": null,
+      "flags": []
+    },
+    {
+      "id": "elitmus-33269",
+      "company": "YugaByte Software Private Limited",
+      "role": "SDET (Software Development Engineer in Test)",
+      "type": "Internship",
+      "location": "Bangalore, Pune",
+      "status": "unverified",
+      "eventsCount": 3,
+      "batch": "Fresher (2026)",
+      "compensationRaw": "₹ 56,00,000 and above",
+      "stipend": null,
+      "referral": 25000,
+      "flags": [
+        "Compensation note preserved: CTC could be more if Stock upside ends up being higher than assumed",
+        "Referral reward preserved: ₹25,000"
+      ]
+    }
+  ]
+}

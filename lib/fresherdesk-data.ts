@@ -21,14 +21,330 @@ export const tasks = [
 { id: "assessment", title: "Assessment", subtitle: "JavaScript fundamentals", label: "Practice", tone: "mint", kind: "quiz", detail: "Practice arrays, objects, asynchronous code and the fundamentals of working with APIs." },
 { id: "review", title: "Code review", subtitle: "Portfolio project", label: "Upcoming", tone: "purple", kind: "code", detail: "Check your project structure, mobile layout, accessibility and README before requesting a review." },
 ];
-export type Opportunity = { id: string; company: string; initials: string; role: string; type: "Internship" | "Job"; location: string; mode: "Remote" | "Hybrid" | "On-site"; skills: string[]; experience: string; description: string; tone: string };
+export interface OpportunityEvent {
+  url: string;
+  sourceDate: string | null;
+  sourceStatus: string;
+  eventTestLocation: string | null;
+  sourceRows: string | null;
+  copiesGrouped: number;
+}
+
+export type Opportunity = {
+  id: string;
+  company: string;
+  initials: string;
+  role: string;
+  type: "Internship" | "Job";
+  location: string;
+  mode?: "Remote" | "Hybrid" | "On-site";
+  skills: string[];
+  experience: string;
+  description: string;
+  tone: string;
+  profile?: string;
+  isPartTime?: boolean;
+  minExperience?: number;
+  maxExperience?: number;
+  acceptsFreshers?: boolean;
+  salaryMin?: number;
+  salaryMax?: number;
+  salaryText?: string;
+  stipendMin?: number;
+  stipendMax?: number;
+  stipendText?: string;
+  eligibility?: string[];
+  // Extended fields for imported & auditable records
+  isImported?: boolean;
+  sourceStatus?: "active" | "expired" | "unverified";
+  sourceBatch?: string | null;
+  sourceCompensationRaw?: string | number | null;
+  compensationNotes?: string | null;
+  referralReward?: number | null;
+  logoUrl?: string | null;
+  events?: OpportunityEvent[];
+  activeApplicationUrl?: string | null;
+  reviewFlags?: string[];
+};
 export const opportunities: Opportunity[] = [
-{ id: "northstar-intern", company: "Northstar Studio", initials: "N", role: "Software Developer Intern", type: "Internship", location: "Pune", mode: "Hybrid", skills: ["React", "Node.js", "MongoDB"], experience: "Students & freshers", description: "Work alongside a product team on responsive web interfaces and small API integrations. This is a sample opportunity for exploring FresherDesk.", tone: "blue" },
-{ id: "orbit-frontend", company: "Orbit Labs", initials: "O", role: "Junior Frontend Developer", type: "Job", location: "Pune", mode: "On-site", skills: ["React", "TypeScript", "CSS"], experience: "0–1 years", description: "Build accessible, responsive interfaces and collaborate with designers and backend developers. This is a sample opportunity.", tone: "purple" },
-{ id: "mint-ai", company: "Mint Technologies", initials: "M", role: "AI Application Intern", type: "Internship", location: "India", mode: "Remote", skills: ["Python", "AI", "APIs"], experience: "Students & freshers", description: "Prototype useful AI experiences and evaluate how they behave with real examples. This is a sample opportunity.", tone: "mint" },
-{ id: "cloud-dev", company: "Cloudline", initials: "C", role: "Associate Software Engineer", type: "Job", location: "Bengaluru", mode: "Hybrid", skills: ["JavaScript", "SQL", "Git"], experience: "0–2 years", description: "Contribute to web products, learn from code reviews and build dependable software. This is a sample opportunity.", tone: "peach" },
-{ id: "pixel-design", company: "Pixel & Co.", initials: "P", role: "UI / UX Design Intern", type: "Internship", location: "Pune", mode: "Remote", skills: ["Figma", "Design", "Research"], experience: "Students & freshers", description: "Explore user needs and translate ideas into thoughtful interfaces. This is a sample opportunity.", tone: "rose" },
+  // Jobs
+  {
+    id: "orbit-frontend",
+    company: "Orbit Labs",
+    initials: "O",
+    role: "Junior Frontend Developer",
+    type: "Job",
+    profile: "Frontend Developer",
+    location: "Pune",
+    mode: "On-site",
+    isPartTime: false,
+    minExperience: 0,
+    maxExperience: 1,
+    acceptsFreshers: true,
+    salaryMin: 4,
+    salaryMax: 6,
+    salaryText: "₹4 – 6 LPA",
+    skills: ["React", "TypeScript", "CSS", "Tailwind"],
+    experience: "0–1 years",
+    description: "Build accessible, responsive interfaces and collaborate with designers and backend developers. This is a sample opportunity.",
+    tone: "purple"
+  },
+  {
+    id: "cloud-dev",
+    company: "Cloudline",
+    initials: "C",
+    role: "Associate Software Engineer",
+    type: "Job",
+    profile: "Software Engineer",
+    location: "Bengaluru",
+    mode: "Hybrid",
+    isPartTime: false,
+    minExperience: 0,
+    maxExperience: 2,
+    acceptsFreshers: true,
+    salaryMin: 6,
+    salaryMax: 9,
+    salaryText: "₹6 – 9 LPA",
+    skills: ["JavaScript", "SQL", "Git", "Node.js"],
+    experience: "0–2 years",
+    description: "Contribute to web products, learn from code reviews and build dependable software. This is a sample opportunity.",
+    tone: "peach"
+  },
+  {
+    id: "apex-backend",
+    company: "Apex Logic",
+    initials: "A",
+    role: "Backend Engineer",
+    type: "Job",
+    profile: "Backend Developer",
+    location: "Pune",
+    mode: "Remote",
+    isPartTime: true,
+    minExperience: 1,
+    maxExperience: 2,
+    acceptsFreshers: false,
+    salaryMin: 5,
+    salaryMax: 8,
+    salaryText: "₹5 – 8 LPA",
+    skills: ["Python", "FastAPI", "PostgreSQL", "Docker"],
+    experience: "1–2 years",
+    description: "Design robust APIs and scalable microservices for financial data workflows. This is a sample opportunity.",
+    tone: "blue"
+  },
+  {
+    id: "quantum-fullstack",
+    company: "QuantumStack",
+    initials: "Q",
+    role: "Full Stack Developer",
+    type: "Job",
+    profile: "Full Stack Engineer",
+    location: "Nagpur",
+    mode: "Hybrid",
+    isPartTime: false,
+    minExperience: 2,
+    maxExperience: 3,
+    acceptsFreshers: false,
+    salaryMin: 8,
+    salaryMax: 12,
+    salaryText: "₹8 – 12 LPA",
+    skills: ["Next.js", "React", "Node.js", "MongoDB"],
+    experience: "2–3 years",
+    description: "Lead end-to-end feature delivery across frontend and backend services for an enterprise SaaS platform. This is a sample opportunity.",
+    tone: "lime"
+  },
+  {
+    id: "synthetix-ai",
+    company: "Synthetix AI",
+    initials: "S",
+    role: "Machine Learning Engineer",
+    type: "Job",
+    profile: "AI / ML Engineer",
+    location: "Bengaluru",
+    mode: "Remote",
+    isPartTime: false,
+    minExperience: 3,
+    maxExperience: 5,
+    acceptsFreshers: false,
+    salaryMin: 10,
+    salaryMax: 15,
+    salaryText: "₹10 – 15 LPA",
+    skills: ["Python", "PyTorch", "LLMs", "LangChain"],
+    experience: "3+ years",
+    description: "Train and deploy deep learning pipelines and generative AI solutions in production. This is a sample opportunity.",
+    tone: "mint"
+  },
+  {
+    id: "canvas-design",
+    company: "Canvas Interactive",
+    initials: "C",
+    role: "Junior UI / UX Designer",
+    type: "Job",
+    profile: "UI / UX Designer",
+    location: "Mumbai",
+    mode: "On-site",
+    isPartTime: true,
+    minExperience: 0,
+    maxExperience: 0,
+    acceptsFreshers: true,
+    salaryMin: 3.5,
+    salaryMax: 5,
+    salaryText: "₹3.5 – 5 LPA",
+    skills: ["Figma", "Design Systems", "Prototyping"],
+    experience: "Fresher",
+    description: "Create intuitive user journeys and polished design components alongside product leads. This is a sample opportunity.",
+    tone: "rose"
+  },
+  {
+    id: "datavibe-analyst",
+    company: "DataVibe Systems",
+    initials: "D",
+    role: "Junior Data Analyst",
+    type: "Job",
+    profile: "Data Analyst",
+    location: "Delhi NCR",
+    mode: "Remote",
+    isPartTime: false,
+    minExperience: 0,
+    maxExperience: 0,
+    acceptsFreshers: true,
+    salaryMin: 4,
+    salaryMax: 6.5,
+    salaryText: "₹4 – 6.5 LPA",
+    skills: ["SQL", "PowerBI", "Python", "Excel"],
+    experience: "Fresher",
+    description: "Analyze user behavior metrics and generate actionable dashboards for business stakeholders. This is a sample opportunity.",
+    tone: "blue"
+  },
+
+  // Internships
+  {
+    id: "northstar-intern",
+    company: "Northstar Studio",
+    initials: "N",
+    role: "Software Developer Intern",
+    type: "Internship",
+    profile: "Software Engineer",
+    location: "Pune",
+    mode: "Hybrid",
+    isPartTime: false,
+    stipendMin: 15000,
+    stipendMax: 20000,
+    stipendText: "₹15,000 – 20,000 / mo",
+    eligibility: ["Students", "Freshers"],
+    skills: ["React", "Node.js", "MongoDB"],
+    experience: "Students & freshers",
+    description: "Work alongside a product team on responsive web interfaces and small API integrations. This is a sample opportunity for exploring FresherDesk.",
+    tone: "blue"
+  },
+  {
+    id: "mint-ai",
+    company: "Mint Technologies",
+    initials: "M",
+    role: "AI Application Intern",
+    type: "Internship",
+    profile: "AI / ML Engineer",
+    location: "India",
+    mode: "Remote",
+    isPartTime: true,
+    stipendMin: 20000,
+    stipendMax: 25000,
+    stipendText: "₹20,000 – 25,000 / mo",
+    eligibility: ["Students", "Freshers", "Graduates"],
+    skills: ["Python", "AI", "APIs", "LLMs"],
+    experience: "Students & freshers",
+    description: "Prototype useful AI experiences and evaluate how they behave with real examples. This is a sample opportunity.",
+    tone: "mint"
+  },
+  {
+    id: "pixel-design",
+    company: "Pixel & Co.",
+    initials: "P",
+    role: "UI / UX Design Intern",
+    type: "Internship",
+    profile: "UI / UX Designer",
+    location: "Pune",
+    mode: "Remote",
+    isPartTime: false,
+    stipendMin: 10000,
+    stipendMax: 15000,
+    stipendText: "₹10,000 – 15,000 / mo",
+    eligibility: ["Students"],
+    skills: ["Figma", "Design", "Research", "Wireframing"],
+    experience: "Students & freshers",
+    description: "Explore user needs and translate ideas into thoughtful interfaces. This is a sample opportunity.",
+    tone: "rose"
+  },
+  {
+    id: "hyperscale-cloud",
+    company: "HyperScale Labs",
+    initials: "H",
+    role: "Cloud & DevOps Intern",
+    type: "Internship",
+    profile: "Cloud / DevOps Engineer",
+    location: "Bengaluru",
+    mode: "On-site",
+    isPartTime: false,
+    stipendMin: 25000,
+    stipendMax: 35000,
+    stipendText: "₹25,000 – 35,000 / mo",
+    eligibility: ["Freshers", "Graduates"],
+    skills: ["Linux", "Docker", "AWS", "CI/CD"],
+    experience: "Freshers & graduates",
+    description: "Learn infrastructure automation and assist in managing containerized deployments on cloud. This is a sample opportunity.",
+    tone: "peach"
+  },
+  {
+    id: "codecraft-web",
+    company: "CodeCraft Labs",
+    initials: "C",
+    role: "Frontend Web Intern",
+    type: "Internship",
+    profile: "Frontend Developer",
+    location: "Nagpur",
+    mode: "Hybrid",
+    isPartTime: true,
+    stipendMin: 12000,
+    stipendMax: 18000,
+    stipendText: "₹12,000 – 18,000 / mo",
+    eligibility: ["Students", "Freshers"],
+    skills: ["HTML", "CSS", "JavaScript", "React"],
+    experience: "Students & freshers",
+    description: "Build clean web modules and practice component-driven architecture with React. This is a sample opportunity.",
+    tone: "purple"
+  },
+  {
+    id: "quantdata-intern",
+    company: "QuantData Insights",
+    initials: "Q",
+    role: "Data Analytics Intern",
+    type: "Internship",
+    profile: "Data Analyst",
+    location: "Mumbai",
+    mode: "Remote",
+    isPartTime: false,
+    stipendMin: 18000,
+    stipendMax: 22000,
+    stipendText: "₹18,000 – 22,000 / mo",
+    eligibility: ["Students", "Graduates"],
+    skills: ["Python", "SQL", "Pandas", "Tableau"],
+    experience: "Students & graduates",
+    description: "Work with exploratory data analysis, data wrangling, and metric dashboards for marketing campaigns. This is a sample opportunity.",
+    tone: "lime"
+  }
 ];
+export { importedOpportunities } from "./imported-opportunities";
+import { importedOpportunities } from "./imported-opportunities";
+
+export const allOpportunities: Opportunity[] = [...opportunities, ...importedOpportunities];
+
+export function getOpportunities(includeImportedReview = false): Opportunity[] {
+  if (includeImportedReview) {
+    return allOpportunities;
+  }
+  // Public default feed: only return standard sample opportunities and verified active imported opportunities
+  return allOpportunities.filter(o => !o.isImported || o.sourceStatus === "active");
+}
+
 export async function getCourses() { return courses; }
 export async function getCourse(slug: string) { return courses.find(c => c.slug === slug); }
 

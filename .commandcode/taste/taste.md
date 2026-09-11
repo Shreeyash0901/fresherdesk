@@ -1,0 +1,12 @@
+- Prefer strictly scoped changes: modify only the specified section/files; do not redesign, refactor, or touch unrelated UI (navbar, footer, other sections), routing, APIs, or project structure. Confidence: 0.98
+- Do not install new packages unless explicitly requested. Confidence: 0.95
+- Reuse existing project assets (images/files) by discovering their real path/extension; do not generate, replace, or invent new asset files when one is already provided. Confidence: 0.95
+- When a reference image is attached, match that visual target for the in-scope section only—do not recreate the whole page from the reference. Confidence: 0.95
+- Preserve original image aspect ratios; do not stretch or distort media. Confidence: 0.9
+- Prefer separate, explicit CSS classes for distinct elements (e.g. laptop vs phone) over generic descendant rules that can force incorrect sizing (e.g. `img { width: 100% }`). Confidence: 0.9
+- Before finishing UI work: verify only intended files changed, assets load, unrelated UI is untouched, desktop/mobile layouts work without overflow, and run typecheck/build when available—fix only errors caused by the change. Report which files changed. Confidence: 0.92
+- Inspect the existing JSX and CSS before making changes, then implement directly. Confidence: 0.85
+- When replacing an existing implementation/visual, fully remove or override the old version so nothing stale remains (no leftover duplicate or dead styles). Confidence: 0.8
+- Keep existing copy/content essentially unchanged unless asked otherwise; focus edits on layout/composition/styling of the targeted area. Confidence: 0.88
+- For overlapping device/image compositions, use a relative wrapper with absolute positioning and z-index so foreground elements sit correctly without awkward overflow. Confidence: 0.85
+ Define explicit responsive behavior per section: on desktop keep the visual on one side and text on the other; on mobile/narrow screens stack vertically with the visual first, then the text, and no horizontal overflow. Confidence: 0.7

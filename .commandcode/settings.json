@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "powershell",
+      "Shell(Add-Type -AssemblyName System.Drawing; $p = [System.Drawing.Image]::FromFile((Resolve-Path \"public/images/phone_transparent.png\")); Write-Host \"phone: $($p.Width)x$($p.Height)\"; $p.Dispose(); $l = [System.Drawing.Image]::FromFile((Resolve-Path \"public/images/dashboard-promo.png\")); Write-Host \"laptop: $($l.Width)x$($l.Height)\"; $l.Dispose())",
+      "Shell(npm:*)",
+      "Shell(Select-Object:*)",
+      "Shell(agent-browser:*)",
+      "Shell(npx next dev -p 3111)",
+      "Shell(node -e console.log(process.version))",
+      "Shell(npx next --version)",
+      "Shell(node -e \"const fs=require('fs');const c=['C:/Program Files/Google/Chrome/Application/chrome.exe','C:/Program Files (x86)/Google/Chrome/Application/chrome.exe','C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe','C:/Program Files/Microsoft/Edge/Application/msedge.exe'];c.forEach(p=>console.log(fs.existsSync(p)?'FOUND '+p:'missing '+p))\")",
+      "Shell(node \"C:\\Users\\Shri\\AppData\\Local\\Temp\\commandcode\\C--Users-Shri-Downloads-FresherDesk-Nextjs-Source-fresherdesk\\50c7b0ef-8f22-47d4-9650-a50e13f12357\\scratchpad\\shot.js\")",
+      "Shell(tasklist /FI \"IMAGENAME eq chrome.exe\" 2>&1 | findstr /I chrome; echo \"---\"; rmdir /S /Q \"C:\\Users\\Shri\\AppData\\Local\\Temp\\commandcode\\C--Users-Shri-Downloads-FresherDesk-Nextjs-Source-fresherdesk\\50c7b0ef-8f22-47d4-9650-a50e13f12357\\scratchpad\\chrome-profile\" 2>&1; echo \"profile removed\")",
+      "Shell(node \"C:\\Users\\Shri\\AppData\\Local\\Temp\\commandcode\\C--Users-Shri-Downloads-FresherDesk-Nextjs-Source-fresherdesk\\50c7b0ef-8f22-47d4-9650-a50e13f12357\\scratchpad\\pnginfo.js\")",
+      "Shell(node \"C:\\Users\\Shri\\AppData\\Local\\Temp\\commandcode\\C--Users-Shri-Downloads-FresherDesk-Nextjs-Source-fresherdesk\\50c7b0ef-8f22-47d4-9650-a50e13f12357\\scratchpad\\px.js\")",
+      "Shell(node -e \"const l=require('lucide-react'); console.log('Apple:', typeof l.Apple, '| Play:', typeof l.Play, '| Smartphone:', typeof l.Smartphone)\")",
+      "Shell(node \"C:\\Users\\Shri\\AppData\\Local\\Temp\\commandcode\\C--Users-Shri-Downloads-FresherDesk-Nextjs-Source-fresherdesk\\50c7b0ef-8f22-47d4-9650-a50e13f12357\\scratchpad\\shot-app.js\")",
+      "Shell(node \"C:\\Users\\Shri\\AppData\\Local\\Temp\\commandcode\\C--Users-Shri-Downloads-FresherDesk-Nextjs-Source-fresherdesk\\50c7b0ef-8f22-47d4-9650-a50e13f12357\\scratchpad\\fetchcss.js\")",
+      "Shell(:PORT=3123:*)",
+      "Shell(node scripts/serve-export.mjs)",
+      "Shell(:TARGET_URL=http://localhost:3123/:*)",
+      "Shell(node C:\\Users\\Shri\\AppData\\Local\\Temp\\commandcode\\C--Users-Shri-Downloads-FresherDesk-Nextjs-Source-fresherdesk\\50c7b0ef-8f22-47d4-9650-a50e13f12357\\scratchpad\\shot-app.js)"
+    ],
+    "deny": [],
+    "defaultMode": "default"
+  }
+}
