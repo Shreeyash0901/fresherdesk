@@ -17,12 +17,13 @@ export function Brand({ light = false }: { light?: boolean }) {
             <Image
                 src="/images/fd_logo_transparent_final.png"
                 alt="FresherDesk"
-                width={160}
-                height={42}
+                width={40}
+                height={40}
                 priority={!light}
                 className="brand-logo-image"
-                style={{ height: "40px", width: "auto", objectFit: "contain" }}
+                style={{ height: "36px", width: "auto", objectFit: "contain" }}
             />
+            <span className="brand-text">FresherDesk</span>
         </Link>
     );
 }
