@@ -119,8 +119,15 @@ export default async function Home() {
             ].map(({ icon: Icon, title, text }, i) => (
               <div className="step" key={title}>
                 {i < 3 && (
-                  <svg className="step-connector" viewBox="0 0 200 67" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-                    <path d="M0 34 C60 16 140 16 200 34" />
+                  <svg className="step-connector" viewBox="0 0 200 67" preserveAspectRatio="none" aria-hidden="true" focusable="false" style={{ overflow: "visible" }}>
+                    <path
+                      d="M0 34 C60 16 140 16 200 34"
+                      fill="none"
+                      stroke="#9ec6b0"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeDasharray="0 8"
+                    />
                   </svg>
                 )}
                 <span className="step-icon"><Icon size={31} /></span>
