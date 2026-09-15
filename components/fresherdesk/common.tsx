@@ -15,7 +15,7 @@ export function Brand({ light = false }: { light?: boolean }) {
             aria-label="FresherDesk home"
         >
             <Image
-                src="/images/fd_logo_transparent_final.png"
+                src={light ? "/images/fd_white_D_transparent_footer.png" : "/images/fd_logo_transparent_final.png"}
                 alt="FresherDesk"
                 width={56}
                 height={56}
