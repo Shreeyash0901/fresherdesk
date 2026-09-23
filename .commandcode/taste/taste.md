@@ -4,6 +4,7 @@
 - When a reference image is attached, match that visual target for the in-scope section only—do not recreate the whole page from the reference. Confidence: 0.95
 - Preserve original image aspect ratios; do not stretch or distort media. Confidence: 0.9
 - Prefer separate, explicit CSS classes for distinct elements (e.g. laptop vs phone) over generic descendant rules that can force incorrect sizing (e.g. `img { width: 100% }`). Confidence: 0.9
+- Wants the agent to act as a senior developer while the user plays the client/product owner: take requirements as a client brief, clarify ambiguous scope before changing code, and flag trade-offs/risks instead of guessing. Confidence: 0.65
 - Before finishing UI work: verify only intended files changed, assets load, unrelated UI is untouched, desktop/mobile layouts work without overflow, and run typecheck/build when available—fix only errors caused by the change. Report which files changed. Confidence: 0.92
 - Inspect the existing JSX and CSS before making changes, then implement directly. Confidence: 0.85
 - When replacing an existing implementation/visual, fully remove or override the old version so nothing stale remains (no leftover duplicate or dead styles). Confidence: 0.8

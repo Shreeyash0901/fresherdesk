@@ -63,8 +63,8 @@ export default async function Home() {
               <span className="eyebrow light">MORE THAN JUST COURSES</span>
               <h2>Everything you need.<br />One step ahead.</h2>
               <p>From your first line of code to your first opportunity, build a future that feels like you.</p>
-              <CheckList items={["Industry-focused learning paths", "Projects that become your portfolio", "Internships and job discovery", "A workspace for your progress"]} />
-              <Link href="/dashboard" className="button button-white">Explore the workspace<ArrowRight size={17} /></Link>
+              <CheckList items={["Industry-focused learning paths", "Projects that build your portfolio", "Internships and job discovery", "Career-ready preparation"]} />
+              <Link href="/courses" className="button button-white">Explore courses<ArrowRight size={17} /></Link>
             </div>
             <div className="why-art">
               <div className="device-showcase">

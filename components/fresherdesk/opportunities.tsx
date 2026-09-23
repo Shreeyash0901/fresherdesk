@@ -38,29 +38,39 @@ import {
   OpportunityFiltersDrawer,
   ActiveFilterChips
 } from "@/components/fresherdesk/opportunity-filters";
+import { ApplyModal } from "@/components/fresherdesk/apply-modal";
 
-export function Opportunities({ type }: { type: "Job" | "Internship" }) {
+export function Opportunities({
+  type,
+  initialOpportunities,
+}: {
+  type: "Job" | "Internship";
+  initialOpportunities?: Opportunity[];
+}) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const route = type === "Job" ? "/jobs" : "/internships";
 
   const [saved, setSaved] = useState<string[]>([]);
+  const [applyModalOpen, setApplyModalOpen] = useState(false);
   const statusParam = searchParams.get("status");
   const isReviewMode = statusParam === "all" || statusParam === "unverified" || statusParam === "expired";
+
+  const sourceOpportunities = initialOpportunities || allOpportunities;
 
   // Data source based on review mode
   const dataset = useMemo(() => {
     if (isReviewMode) {
       if (statusParam === "unverified") {
-        return allOpportunities.filter(o => o.sourceStatus === "unverified");
+        return sourceOpportunities.filter(o => o.sourceStatus === "unverified");
       }
       if (statusParam === "expired") {
-        return allOpportunities.filter(o => o.sourceStatus === "expired");
+        return sourceOpportunities.filter(o => o.sourceStatus === "expired");
       }
-      return allOpportunities;
+      return sourceOpportunities;
     }
-    return getOpportunities(false);
-  }, [isReviewMode, statusParam]);
+    return sourceOpportunities.filter(o => o.sourceStatus === "active");
+  }, [isReviewMode, statusParam, sourceOpportunities]);
 
   // Parse filters from URL search params
   const filters = useMemo(() => {
@@ -577,19 +587,23 @@ export function Opportunities({ type }: { type: "Job" | "Internship" }) {
                     : "Save"}
                 </button>
 
-                {selectedOpportunity.activeApplicationUrl ? (
+                <button
+                  type="button"
+                  className="button button-green flex-1"
+                  onClick={() => setApplyModalOpen(true)}
+                >
+                  Apply Now <ArrowUpRight size={16} />
+                </button>
+
+                {selectedOpportunity.activeApplicationUrl && (
                   <a
                     href={selectedOpportunity.activeApplicationUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="button button-green flex-1"
+                    className="button button-navy flex-1 text-xs"
                   >
-                    Apply on site <ArrowUpRight size={16} />
+                    Direct Site Link
                   </a>
-                ) : (
-                  <button type="button" disabled className="button button-navy flex-1 opacity-50 cursor-not-allowed">
-                    No active link
-                  </button>
                 )}
               </div>
 
@@ -602,6 +616,12 @@ export function Opportunities({ type }: { type: "Job" | "Internship" }) {
           )}
         </DialogContent>
       </Dialog>
+
+      <ApplyModal
+        opportunity={selectedOpportunity || null}
+        open={applyModalOpen}
+        onOpenChange={setApplyModalOpen}
+      />
     </>
   );
 }
