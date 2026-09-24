@@ -201,6 +201,7 @@ export default async function AdminLeadDetailPage({
             currentStatus={lead.status}
             currentPriority={lead.priority}
             currentAssignedTo={lead.assignedTo}
+            opportunityType={lead.opportunityType || "Job"}
             recruiters={recruiters}
             existingNotes={lead.notes}
           />

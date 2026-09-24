@@ -52,6 +52,7 @@ export default async function AdminLeadsPage({
       opportunities={oppList}
       currentQuery={resolvedParams.q}
       currentAssignedTo={resolvedParams.assignedTo}
+      currentType={resolvedParams.type}
       defaultView="board"
     />
   );

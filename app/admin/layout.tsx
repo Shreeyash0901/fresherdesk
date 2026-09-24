@@ -27,6 +27,7 @@ export default async function AdminLayout({
     { label: "Leads Pipeline", href: "/admin/leads", icon: Users },
     { label: "Jobs", href: "/admin/jobs", icon: Briefcase },
     { label: "Internships", href: "/admin/internships", icon: Layers },
+    { label: "Courses", href: "/admin/courses", icon: GraduationCap },
     { label: "Bulk Ingest", href: "/admin/import", icon: FileSpreadsheet },
     { label: "Users & Roles", href: "/admin/users", icon: ShieldAlert },
   ];

@@ -5,19 +5,28 @@ import { createOpportunityAction } from "@/app/actions/admin-opportunities";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Briefcase, Building2, MapPin, IndianRupee, Layers, CheckCircle2, AlertCircle, ArrowLeft, Send } from "lucide-react";
+import {
+  GraduationCap,
+  Layers,
+  BookOpen,
+  Clock,
+  Sparkles,
+  CheckCircle2,
+  AlertCircle,
+  ArrowLeft,
+  Send,
+} from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-export function OpportunityForm({ defaultType = "Job" }: { defaultType?: "Job" | "Internship" }) {
+export function CourseForm() {
   const router = useRouter();
-  const [type, setType] = useState<"Job" | "Internship">(defaultType);
-  const [mode, setMode] = useState<"Remote" | "Hybrid" | "On-site">("On-site");
+  const [category, setCategory] = useState("Development");
+  const [tone, setTone] = useState("lime");
+  const [mode, setMode] = useState<"Remote" | "Hybrid" | "On-site">("Remote");
   const [status, setStatus] = useState<"published" | "draft">("published");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [result, setResult] = useState<{ success?: boolean; error?: string } | null>(null);
-
-  const backLink = type === "Job" ? "/admin/jobs" : "/admin/internships";
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -25,20 +34,28 @@ export function OpportunityForm({ defaultType = "Job" }: { defaultType?: "Job" |
     setResult(null);
 
     const formData = new FormData(e.currentTarget);
-    formData.set("type", type);
+    formData.set("type", "Course");
     formData.set("mode", mode);
     formData.set("status", status);
+    formData.set("company", "FresherDesk Academy");
+    formData.set("location", category); // Store course category in location field
+    formData.set("tone", tone);
+
+    // Combine weeks and lessons into experience field format: "16 weeks (128 lessons)"
+    const weeks = formData.get("weeks") || "12";
+    const lessons = formData.get("lessons") || "80";
+    formData.set("experience", `${weeks} weeks (${lessons} lessons)`);
 
     try {
       const res = await createOpportunityAction(formData);
       if (res.success) {
         setResult({ success: true });
         setTimeout(() => {
-          router.push(backLink);
+          router.push("/admin/courses");
           router.refresh();
         }, 1200);
       } else {
-        setResult({ error: res.error || "Failed to create listing" });
+        setResult({ error: res.error || "Failed to create course" });
       }
     } catch {
       setResult({ error: "A network error occurred. Please try again." });
@@ -50,26 +67,26 @@ export function OpportunityForm({ defaultType = "Job" }: { defaultType?: "Job" |
   return (
     <div className="max-w-3xl space-y-6">
       <Link
-        href={backLink}
+        href="/admin/courses"
         className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-slate-900 transition-colors"
       >
         <ArrowLeft size={15} />
-        Back to {type === "Job" ? "Jobs" : "Internships"}
+        Back to Courses
       </Link>
 
       <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-xs">
         <h1 className="text-xl font-bold text-slate-900 mb-1 flex items-center gap-2">
-          <Briefcase size={20} className="text-emerald-600" />
-          Add New {type} Opportunity
+          <GraduationCap size={22} className="text-indigo-600" />
+          Add New Course Program
         </h1>
         <p className="text-xs text-slate-500 mb-6">
-          Publish a new {type.toLowerCase()} listing directly to the database and live website.
+          Create and publish a curriculum learning path for students and freshers.
         </p>
 
         {result?.success && (
           <div className="p-3 mb-5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs flex items-center gap-2">
             <CheckCircle2 size={16} />
-            <span>Listing created successfully! Redirecting...</span>
+            <span>Course program created successfully! Redirecting...</span>
           </div>
         )}
 
@@ -81,194 +98,191 @@ export function OpportunityForm({ defaultType = "Job" }: { defaultType?: "Job" |
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Top Row: Type & Status */}
+          {/* Top Row: Category, Mode & Status */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div className="space-y-1">
-              <label className="text-xs font-semibold text-slate-700">Opportunity Type</label>
-              <Select value={type} onValueChange={(v: any) => setType(v)}>
+              <label className="text-xs font-semibold text-slate-700">
+                Course Category <span className="text-rose-500">*</span>
+              </label>
+              <Select value={category} onValueChange={setCategory}>
                 <SelectTrigger className="h-10 text-xs bg-slate-50 border-slate-200">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Job">Job Opening</SelectItem>
-                  <SelectItem value="Internship">Internship Opening</SelectItem>
+                  <SelectItem value="Development">Development</SelectItem>
+                  <SelectItem value="Cloud">Cloud & DevOps</SelectItem>
+                  <SelectItem value="AI / ML">AI & Machine Learning</SelectItem>
+                  <SelectItem value="Cyber Security">Cyber Security</SelectItem>
+                  <SelectItem value="Data Science">Data Science</SelectItem>
+                  <SelectItem value="Design">UI / UX & Design</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-1">
-              <label className="text-xs font-semibold text-slate-700">Workplace Mode</label>
+              <label className="text-xs font-semibold text-slate-700">Delivery Mode</label>
               <Select value={mode} onValueChange={(v: any) => setMode(v)}>
                 <SelectTrigger className="h-10 text-xs bg-slate-50 border-slate-200">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="On-site">On-site</SelectItem>
-                  <SelectItem value="Hybrid">Hybrid</SelectItem>
-                  <SelectItem value="Remote">Remote</SelectItem>
+                  <SelectItem value="Remote">Online (Self-Paced / Live)</SelectItem>
+                  <SelectItem value="Hybrid">Hybrid (Online + Mentorship)</SelectItem>
+                  <SelectItem value="On-site">Classroom / Bootcamp</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-1">
-              <label className="text-xs font-semibold text-slate-700">Initial Status</label>
+              <label className="text-xs font-semibold text-slate-700">Publishing Status</label>
               <Select value={status} onValueChange={(v: any) => setStatus(v)}>
                 <SelectTrigger className="h-10 text-xs bg-slate-50 border-slate-200">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="published">Published (Live immediately)</SelectItem>
-                  <SelectItem value="draft">Draft (Hidden from public)</SelectItem>
+                  <SelectItem value="published">Published (Live on Website)</SelectItem>
+                  <SelectItem value="draft">Draft (Private)</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
 
-          {/* Role & Company */}
+          {/* Course Title & Short Title */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="space-y-1">
               <label htmlFor="role" className="text-xs font-semibold text-slate-700">
-                Job / Internship Title <span className="text-rose-500">*</span>
+                Full Course Title <span className="text-rose-500">*</span>
               </label>
               <Input
                 id="role"
                 name="role"
                 required
-                placeholder="e.g. Associate Software Engineer / Frontend Intern"
+                placeholder="e.g. Full-Stack Software Developer"
                 className="h-10 text-xs bg-slate-50 border-slate-200"
                 disabled={isSubmitting}
               />
             </div>
 
             <div className="space-y-1">
-              <label htmlFor="company" className="text-xs font-semibold text-slate-700">
-                Hiring Company Name <span className="text-rose-500">*</span>
+              <label htmlFor="title" className="text-xs font-semibold text-slate-700">
+                Short Name / Badge Title <span className="text-rose-500">*</span>
               </label>
               <Input
-                id="company"
-                name="company"
+                id="title"
+                name="title"
                 required
-                placeholder="e.g. Google, Flipkart, Razorpay"
+                placeholder="e.g. Full-Stack Development"
                 className="h-10 text-xs bg-slate-50 border-slate-200"
                 disabled={isSubmitting}
               />
             </div>
           </div>
 
-          {/* Location & Experience */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {/* Lessons, Weeks Duration & Certificate */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div className="space-y-1">
-              <label htmlFor="location" className="text-xs font-semibold text-slate-700">
-                Location(s) <span className="text-rose-500">*</span>
+              <label htmlFor="lessons" className="text-xs font-semibold text-slate-700">
+                Number of Lessons
               </label>
               <Input
-                id="location"
-                name="location"
-                required
-                placeholder="e.g. Bengaluru / Pune / Remote"
+                id="lessons"
+                name="lessons"
+                type="number"
+                defaultValue="90"
+                placeholder="e.g. 120"
                 className="h-10 text-xs bg-slate-50 border-slate-200"
                 disabled={isSubmitting}
               />
             </div>
 
             <div className="space-y-1">
-              <label htmlFor="experience" className="text-xs font-semibold text-slate-700">
-                Experience / Eligible Batch
+              <label htmlFor="weeks" className="text-xs font-semibold text-slate-700">
+                Duration (in Weeks)
               </label>
               <Input
-                id="experience"
-                name="experience"
-                placeholder="e.g. 0-1 Years / 2025-2026 Batch"
-                defaultValue="0-1 Years"
+                id="weeks"
+                name="weeks"
+                type="number"
+                defaultValue="12"
+                placeholder="e.g. 16"
                 className="h-10 text-xs bg-slate-50 border-slate-200"
                 disabled={isSubmitting}
               />
             </div>
-          </div>
 
-          {/* Compensation */}
-          {type === "Job" ? (
             <div className="space-y-1">
               <label htmlFor="salaryText" className="text-xs font-semibold text-slate-700">
-                Salary / CTC Package Details
+                Tuition / Certification Perk
               </label>
               <Input
                 id="salaryText"
                 name="salaryText"
-                placeholder="e.g. ₹6,00,000 - ₹9,00,000 / yr"
-                className="h-10 text-xs bg-slate-50 border-slate-200"
-                disabled={isSubmitting}
-              />
-            </div>
-          ) : (
-            <div className="space-y-1">
-              <label htmlFor="stipendText" className="text-xs font-semibold text-slate-700">
-                Stipend Details
-              </label>
-              <Input
-                id="stipendText"
-                name="stipendText"
-                placeholder="e.g. ₹25,000 - ₹35,000 / month"
-                className="h-10 text-xs bg-slate-50 border-slate-200"
-                disabled={isSubmitting}
-              />
-            </div>
-          )}
-
-          {/* Skills & Eligibility */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div className="space-y-1">
-              <label htmlFor="skills" className="text-xs font-semibold text-slate-700">
-                Required Skills (Comma separated)
-              </label>
-              <Input
-                id="skills"
-                name="skills"
-                placeholder="e.g. React, TypeScript, Tailwind, Node.js"
-                className="h-10 text-xs bg-slate-50 border-slate-200"
-                disabled={isSubmitting}
-              />
-            </div>
-
-            <div className="space-y-1">
-              <label htmlFor="eligibility" className="text-xs font-semibold text-slate-700">
-                Eligibility Criteria (Comma separated)
-              </label>
-              <Input
-                id="eligibility"
-                name="eligibility"
-                placeholder="e.g. B.Tech / BE in CS/IT, 60%+ in Graduation"
+                defaultValue="Certificate Included"
+                placeholder="e.g. Free / Certificate Included / ₹4,999"
                 className="h-10 text-xs bg-slate-50 border-slate-200"
                 disabled={isSubmitting}
               />
             </div>
           </div>
 
-          {/* Direct External URL */}
+          {/* Skills Covered & Visual Tone */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="space-y-1">
+              <label htmlFor="skills" className="text-xs font-semibold text-slate-700">
+                Technologies / Skills Covered (Comma separated)
+              </label>
+              <Input
+                id="skills"
+                name="skills"
+                placeholder="e.g. React, Node.js, Next.js, PostgreSQL"
+                className="h-10 text-xs bg-slate-50 border-slate-200"
+                disabled={isSubmitting}
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-xs font-semibold text-slate-700">Card Color Accent</label>
+              <Select value={tone} onValueChange={setTone}>
+                <SelectTrigger className="h-10 text-xs bg-slate-50 border-slate-200">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="lime">Lime / Green</SelectItem>
+                  <SelectItem value="blue">Blue</SelectItem>
+                  <SelectItem value="purple">Purple</SelectItem>
+                  <SelectItem value="mint">Mint</SelectItem>
+                  <SelectItem value="peach">Peach</SelectItem>
+                  <SelectItem value="rose">Rose</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          {/* Key Outcomes */}
           <div className="space-y-1">
-            <label htmlFor="activeApplicationUrl" className="text-xs font-semibold text-slate-700">
-              Direct Application Link (Optional)
+            <label htmlFor="eligibility" className="text-xs font-semibold text-slate-700">
+              What Students Will Learn (Comma separated bullet points)
             </label>
             <Input
-              id="activeApplicationUrl"
-              name="activeApplicationUrl"
-              type="url"
-              placeholder="https://company.careers/job/123"
+              id="eligibility"
+              name="eligibility"
+              placeholder="e.g. Build real-world React apps, Master backend REST APIs, Deploy on AWS & Vercel"
               className="h-10 text-xs bg-slate-50 border-slate-200"
               disabled={isSubmitting}
             />
           </div>
 
-          {/* Description */}
+          {/* Course Summary */}
           <div className="space-y-1">
             <label htmlFor="description" className="text-xs font-semibold text-slate-700">
-              Role Summary & Description
+              Course Summary & Overview <span className="text-rose-500">*</span>
             </label>
             <Textarea
               id="description"
               name="description"
+              required
               rows={4}
-              placeholder="Provide key responsibilities, requirements, or perks..."
+              placeholder="Provide a compelling overview of what students will achieve in this program..."
               className="text-xs resize-none bg-slate-50 border-slate-200"
               disabled={isSubmitting}
             />
@@ -276,7 +290,7 @@ export function OpportunityForm({ defaultType = "Job" }: { defaultType?: "Job" |
 
           <div className="pt-3 flex justify-end gap-2 border-t border-slate-100">
             <Link
-              href={type === "Job" ? "/admin/jobs" : "/admin/internships"}
+              href="/admin/courses"
               className="button button-outline compact text-xs"
             >
               Cancel
@@ -287,7 +301,7 @@ export function OpportunityForm({ defaultType = "Job" }: { defaultType?: "Job" |
               className="button button-green compact text-xs flex items-center gap-1.5"
             >
               <Send size={13} />
-              {isSubmitting ? "Creating Listing..." : `Publish ${type}`}
+              {isSubmitting ? "Creating Course..." : "Publish Course Program"}
             </button>
           </div>
         </form>

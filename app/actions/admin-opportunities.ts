@@ -11,7 +11,7 @@ export type AdminOpportunityListItem = {
   id: string;
   title: string;
   role: string;
-  type: "Job" | "Internship";
+  type: "Job" | "Internship" | "Course";
   companyName: string;
   companyInitials: string;
   location: string;
@@ -32,7 +32,7 @@ export type AdminOpportunityListItem = {
  * Fetch opportunity listings for admin table
  */
 export async function getAdminOpportunities(params?: {
-  type?: "Job" | "Internship";
+  type?: "Job" | "Internship" | "Course";
   status?: string;
   q?: string;
 }) {

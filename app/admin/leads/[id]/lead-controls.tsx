@@ -17,6 +17,7 @@ export function LeadManageControls({
   currentStatus,
   currentPriority,
   currentAssignedTo,
+  opportunityType = "Job",
   recruiters,
   existingNotes,
 }: {
@@ -24,6 +25,7 @@ export function LeadManageControls({
   currentStatus: string;
   currentPriority: string;
   currentAssignedTo: string | null;
+  opportunityType?: string;
   recruiters: { id: string; name: string; email: string; role: string }[];
   existingNotes: string | null;
 }) {
@@ -34,6 +36,8 @@ export function LeadManageControls({
   const [newNote, setNewNote] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
   const [message, setMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
+
+  const isCourse = opportunityType === "Course";
 
   async function handleStatusChange(val: string) {
     setStatus(val);
@@ -72,10 +76,10 @@ export function LeadManageControls({
     try {
       const assignee = val === "unassigned" ? null : val;
       await assignLeadRecruiterAction(leadId, assignee);
-      setMessage({ text: "Recruiter assigned!", type: "success" });
+      setMessage({ text: "Advisor assigned!", type: "success" });
       router.refresh();
     } catch {
-      setMessage({ text: "Failed to assign recruiter", type: "error" });
+      setMessage({ text: "Failed to assign advisor", type: "error" });
     } finally {
       setIsUpdating(false);
     }
@@ -103,7 +107,7 @@ export function LeadManageControls({
     <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-xs space-y-5">
       <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
         <ShieldCheck size={18} className="text-slate-400" />
-        Lead Action Controls
+        {isCourse ? "Course Admissions & Enrollment Controls" : "Lead Action Controls"}
       </h2>
 
       {message && (
@@ -125,20 +129,35 @@ export function LeadManageControls({
 
       {/* Status Selector */}
       <div className="space-y-1.5">
-        <label className="text-xs font-semibold text-slate-700">Pipeline Status</label>
+        <label className="text-xs font-semibold text-slate-700">Pipeline Stage</label>
         <Select value={status} onValueChange={handleStatusChange} disabled={isUpdating}>
           <SelectTrigger className="h-10 text-xs bg-slate-50 border-slate-200">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="new">New / Uncontacted</SelectItem>
-            <SelectItem value="contacted">Contacted</SelectItem>
-            <SelectItem value="screening">Initial Screening</SelectItem>
-            <SelectItem value="interview">Interview Scheduled</SelectItem>
-            <SelectItem value="shortlisted">Shortlisted</SelectItem>
-            <SelectItem value="selected">Offer Extended / Selected</SelectItem>
-            <SelectItem value="rejected">Rejected</SelectItem>
-            <SelectItem value="withdrawn">Candidate Withdrawn</SelectItem>
+            {isCourse ? (
+              <>
+                <SelectItem value="new">New Inquiry</SelectItem>
+                <SelectItem value="contacted">Contacted / Intro Call</SelectItem>
+                <SelectItem value="screening">Career Counselling Done</SelectItem>
+                <SelectItem value="interview">Demo / Curriculum Review</SelectItem>
+                <SelectItem value="shortlisted">Fee / Batch Discussion</SelectItem>
+                <SelectItem value="selected">Enrolled & Active</SelectItem>
+                <SelectItem value="rejected">Declined / Dropped</SelectItem>
+                <SelectItem value="withdrawn">Postponed</SelectItem>
+              </>
+            ) : (
+              <>
+                <SelectItem value="new">New / Uncontacted</SelectItem>
+                <SelectItem value="contacted">Contacted</SelectItem>
+                <SelectItem value="screening">Initial Screening</SelectItem>
+                <SelectItem value="interview">Interview Scheduled</SelectItem>
+                <SelectItem value="shortlisted">Shortlisted</SelectItem>
+                <SelectItem value="selected">Offer Extended / Selected</SelectItem>
+                <SelectItem value="rejected">Rejected</SelectItem>
+                <SelectItem value="withdrawn">Withdrawn</SelectItem>
+              </>
+            )}
           </SelectContent>
         </Select>
       </div>

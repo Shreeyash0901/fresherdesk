@@ -82,7 +82,12 @@ export async function submitLeadApplicationAction(
   // Optional user link
   const session = await getSession();
   const leadId = "lead_" + randomUUID();
-  const leadSource = opp.type === "Internship" ? "internship_application" : "job_application";
+  const leadSource =
+    opp.type === "Internship"
+      ? "internship_application"
+      : opp.type === "Course"
+      ? "course_enrollment"
+      : "job_application";
 
   try {
     // 1. Create Lead
@@ -111,7 +116,7 @@ export async function submitLeadApplicationAction(
         actorName: session?.name || "Public Portal Visitor",
         action: "LEAD_CREATED",
         newStatus: "new",
-        note: `Applicant applied for ${opp.type}: "${opp.title}" at ${opp.companyName}.`,
+        note: `Applicant ${opp.type === "Course" ? "enrolled/registered interest for Course" : `applied for ${opp.type}`}: "${opp.title}" at ${opp.companyName}.`,
       })
       .run();
 
@@ -134,7 +139,10 @@ export async function submitLeadApplicationAction(
 
     return {
       success: true,
-      message: `Your application for "${opp.title}" has been successfully submitted! Our talent team will review your profile shortly.`,
+      message:
+        opp.type === "Course"
+          ? `You have successfully enrolled in "${opp.title}"! Our admissions team will reach out with course details and next steps.`
+          : `Your application for "${opp.title}" has been successfully submitted! Our talent team will review your profile shortly.`,
     };
   } catch (error: any) {
     console.error("Error creating lead application:", error);

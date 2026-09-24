@@ -28,6 +28,7 @@ export function LeadsPipelineClient({
   opportunities,
   currentQuery,
   currentAssignedTo,
+  currentType = "all",
   defaultView = "board",
 }: {
   leads: AdminLeadListItem[];
@@ -36,6 +37,7 @@ export function LeadsPipelineClient({
   opportunities: { id: string; title: string; companyName: string; type: string }[];
   currentQuery?: string;
   currentAssignedTo?: string;
+  currentType?: string;
   defaultView?: "board" | "list";
 }) {
   const router = useRouter();
@@ -44,10 +46,19 @@ export function LeadsPipelineClient({
   const [assignedFilter, setAssignedFilter] = useState(currentAssignedTo || "all");
   const [isRefreshing, setIsRefreshing] = useState(false);
 
+  function handleTypeTabChange(typeVal: string) {
+    const p = new URLSearchParams();
+    if (currentQuery) p.set("q", currentQuery);
+    if (assignedFilter && assignedFilter !== "all") p.set("assignedTo", assignedFilter);
+    if (typeVal && typeVal !== "all") p.set("type", typeVal);
+    router.push("/admin/leads" + (p.size ? `?${p.toString()}` : ""));
+  }
+
   function handleRecruiterFilterChange(val: string) {
     setAssignedFilter(val);
     const p = new URLSearchParams();
     if (currentQuery) p.set("q", currentQuery);
+    if (currentType && currentType !== "all") p.set("type", currentType);
     if (val && val !== "all") p.set("assignedTo", val);
     router.push("/admin/leads" + (p.size ? `?${p.toString()}` : ""));
   }
@@ -69,13 +80,26 @@ export function LeadsPipelineClient({
     withdrawn: "bg-slate-100 text-slate-800 border-slate-200",
   };
 
+  const pipelineTabs = [
+    { id: "all", label: "All Inquiries", count: metrics.total },
+    { id: "Job", label: "Job Inquiries", count: metrics.jobCount ?? 0 },
+    { id: "Internship", label: "Internship Inquiries", count: metrics.internshipCount ?? 0 },
+    { id: "Course", label: "Course Enrollments", count: metrics.courseCount ?? 0 },
+  ];
+
   return (
     <div className="space-y-5">
       {/* Top Header Row matching Reference Design */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-1 border-b border-slate-200">
         <div>
           <h1 className="text-xl font-bold text-slate-900 tracking-tight">
-            Lead pipeline
+            {currentType === "Job"
+              ? "Job Inquiries Pipeline"
+              : currentType === "Internship"
+              ? "Internship Inquiries Pipeline"
+              : currentType === "Course"
+              ? "Course Enrollments Pipeline"
+              : "Lead pipeline"}
           </h1>
           <p className="text-xs text-slate-500 mt-0.5">
             <span className="font-semibold text-slate-700">{leads.length} open leads</span> · pipeline active
@@ -151,9 +175,47 @@ export function LeadsPipelineClient({
         </div>
       </div>
 
+      {/* 3 Dedicated Pipeline Tabs */}
+      <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none border-b border-slate-200/80">
+        {pipelineTabs.map((tab) => {
+          const isActive = (currentType || "all") === tab.id;
+          return (
+            <button
+              key={tab.id}
+              type="button"
+              onClick={() => handleTypeTabChange(tab.id)}
+              className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold transition-all border shrink-0 ${
+                isActive
+                  ? tab.id === "Job"
+                    ? "bg-blue-50 text-blue-900 border-blue-300 shadow-2xs"
+                    : tab.id === "Internship"
+                    ? "bg-purple-50 text-purple-900 border-purple-300 shadow-2xs"
+                    : tab.id === "Course"
+                    ? "bg-indigo-50 text-indigo-900 border-indigo-300 shadow-2xs"
+                    : "bg-slate-900 text-white border-slate-900 shadow-2xs"
+                  : "bg-white text-slate-600 border-slate-200 hover:bg-slate-50 hover:text-slate-900"
+              }`}
+            >
+              <span>{tab.label}</span>
+              <span
+                className={`px-1.5 py-0.2 rounded-full text-[10px] font-bold ${
+                  isActive
+                    ? tab.id === "all"
+                      ? "bg-slate-800 text-white"
+                      : "bg-white text-slate-800"
+                    : "bg-slate-100 text-slate-600"
+                }`}
+              >
+                {tab.count}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
       {/* Render View: Board vs List */}
       {view === "board" ? (
-        <LeadBoardView leads={leads} />
+        <LeadBoardView leads={leads} type={currentType} />
       ) : (
         /* Tabular List View */
         <div className="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden">
@@ -176,7 +238,7 @@ export function LeadsPipelineClient({
                   <tr>
                     <td colSpan={8} className="p-8 text-center text-slate-500">
                       <Users size={32} className="mx-auto mb-2 text-slate-300" />
-                      <p className="font-semibold text-slate-700">No leads found in this filter</p>
+                      <p className="font-semibold text-slate-700">No leads found in this pipeline</p>
                     </td>
                   </tr>
                 ) : (
@@ -197,7 +259,15 @@ export function LeadsPipelineClient({
                         <span className="text-[11px] text-slate-400">{lead.companyName}</span>
                       </td>
                       <td className="p-4">
-                        <span className="text-[10px] font-bold uppercase px-1.5 py-0.5 rounded bg-slate-100 text-slate-700">
+                        <span
+                          className={`text-[10px] font-bold uppercase px-1.5 py-0.5 rounded ${
+                            lead.opportunityType === "Internship"
+                              ? "bg-purple-100 text-purple-800"
+                              : lead.opportunityType === "Course"
+                              ? "bg-indigo-100 text-indigo-800"
+                              : "bg-blue-100 text-blue-800"
+                          }`}
+                        >
                           {lead.opportunityType}
                         </span>
                       </td>

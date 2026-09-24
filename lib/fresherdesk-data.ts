@@ -35,7 +35,7 @@ export type Opportunity = {
   company: string;
   initials: string;
   role: string;
-  type: "Internship" | "Job";
+  type: "Internship" | "Job" | "Course";
   location: string;
   mode?: "Remote" | "Hybrid" | "On-site";
   skills: string[];

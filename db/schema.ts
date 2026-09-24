@@ -33,7 +33,7 @@ export const opportunities = sqliteTable("opportunities", {
   companyInitials: text("company_initials").notNull(),
   title: text("title").notNull(),
   role: text("role").notNull(),
-  type: text("type", { enum: ["Job", "Internship"] }).notNull(),
+  type: text("type", { enum: ["Job", "Internship", "Course"] }).notNull(),
   location: text("location").notNull(),
   mode: text("mode", { enum: ["Remote", "Hybrid", "On-site"] }).default("On-site"),
   status: text("status", { enum: ["draft", "published", "expired", "archived"] })
@@ -77,6 +77,7 @@ export const leads = sqliteTable("leads", {
     enum: [
       "job_application",
       "internship_application",
+      "course_enrollment",
       "website",
       "referral",
       "import",

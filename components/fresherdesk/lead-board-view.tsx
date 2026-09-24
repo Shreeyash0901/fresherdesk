@@ -17,59 +17,97 @@ import {
 import { updateLeadStatusAction, type AdminLeadListItem } from "@/app/actions/admin-leads";
 import { useRouter } from "next/navigation";
 
-// Define the 6 core stages matching the reference design
-const PIPELINE_COLUMNS = [
+// 1. Job / Internship Pipeline Stages
+const JOB_PIPELINE_COLUMNS = [
   {
     id: "new",
     label: "New Lead",
     dotColor: "bg-indigo-600",
     headerBg: "border-indigo-200 text-indigo-900",
-    weightHint: "10% weighted",
   },
   {
     id: "contacted",
     label: "Contacted",
     dotColor: "bg-sky-500",
     headerBg: "border-sky-200 text-sky-900",
-    weightHint: "25% weighted",
   },
   {
     id: "screening",
     label: "Screening",
     dotColor: "bg-blue-600",
     headerBg: "border-blue-200 text-blue-900",
-    weightHint: "40% weighted",
   },
   {
     id: "interview",
     label: "Interview",
     dotColor: "bg-purple-600",
     headerBg: "border-purple-200 text-purple-900",
-    weightHint: "60% weighted",
   },
   {
     id: "shortlisted",
     label: "Shortlisted",
     dotColor: "bg-amber-500",
     headerBg: "border-amber-200 text-amber-900",
-    weightHint: "80% weighted",
   },
   {
     id: "selected",
-    label: "Selected / Converted",
+    label: "Selected / Hired",
     dotColor: "bg-emerald-600",
     headerBg: "border-emerald-200 text-emerald-900",
-    weightHint: "100% weighted",
+  },
+];
+
+// 2. Course Inquiries & Enrollment Pipeline Stages (Concise clean labels)
+const COURSE_PIPELINE_COLUMNS = [
+  {
+    id: "new",
+    label: "New Inquiry",
+    dotColor: "bg-indigo-600",
+    headerBg: "border-indigo-200 text-indigo-900",
+  },
+  {
+    id: "contacted",
+    label: "Contacted",
+    dotColor: "bg-sky-500",
+    headerBg: "border-sky-200 text-sky-900",
+  },
+  {
+    id: "screening",
+    label: "Counselling",
+    dotColor: "bg-blue-600",
+    headerBg: "border-blue-200 text-blue-900",
+  },
+  {
+    id: "interview",
+    label: "Demo Review",
+    dotColor: "bg-purple-600",
+    headerBg: "border-purple-200 text-purple-900",
+  },
+  {
+    id: "shortlisted",
+    label: "Batch & Fee",
+    dotColor: "bg-amber-500",
+    headerBg: "border-amber-200 text-amber-900",
+  },
+  {
+    id: "selected",
+    label: "Enrolled",
+    dotColor: "bg-emerald-600",
+    headerBg: "border-emerald-200 text-emerald-900",
   },
 ];
 
 export function LeadBoardView({
   leads,
+  type = "all",
 }: {
   leads: AdminLeadListItem[];
+  type?: string;
 }) {
   const router = useRouter();
   const [movingId, setMovingId] = useState<string | null>(null);
+
+  const activeColumns = type === "Course" ? COURSE_PIPELINE_COLUMNS : JOB_PIPELINE_COLUMNS;
 
   async function handleMoveStage(leadId: string, nextStatus: string) {
     setMovingId(leadId);
@@ -82,9 +120,9 @@ export function LeadBoardView({
   }
 
   return (
-    <div className="bg-slate-50/60 p-3 rounded-2xl border border-slate-200/90 shadow-2xs w-full min-h-[620px]">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 divide-y sm:divide-y-0 xl:divide-x divide-slate-200/90 select-none items-stretch w-full">
-        {PIPELINE_COLUMNS.map((col, idx) => {
+    <div className="bg-slate-50/60 p-2.5 rounded-2xl border border-slate-200/90 shadow-2xs w-full min-h-[620px]">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 divide-y sm:divide-y-0 xl:divide-x divide-slate-200/90 select-none items-stretch w-full gap-y-3 xl:gap-y-0">
+        {activeColumns.map((col, idx) => {
           const columnLeads = leads.filter((l) => l.status === col.id);
 
           return (
@@ -92,23 +130,26 @@ export function LeadBoardView({
               key={col.id}
               className={`flex flex-col min-w-0 ${
                 idx === 0
-                  ? "xl:pr-3"
-                  : idx === PIPELINE_COLUMNS.length - 1
-                  ? "xl:pl-3"
-                  : "xl:px-3"
-              } py-2 sm:py-0`}
+                  ? "xl:pr-2"
+                  : idx === activeColumns.length - 1
+                  ? "xl:pl-2"
+                  : "xl:px-2"
+              } py-1 sm:py-0`}
             >
               {/* Column Container */}
-              <div className="w-full bg-slate-100/70 rounded-xl p-2.5 border border-slate-200/80 flex flex-col flex-1 max-h-[calc(100vh-210px)] min-w-0">
+              <div className="w-full bg-slate-100/70 rounded-xl p-2 border border-slate-200/80 flex flex-col flex-1 max-h-[calc(100vh-210px)] min-w-0">
                 {/* Column Header */}
-                <div className="flex items-center justify-between px-1.5 py-1.5 mb-2">
-                  <div className="flex items-center gap-1.5 min-w-0">
-                    <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${col.dotColor}`} />
-                    <h2 className="text-xs font-bold text-slate-800 tracking-tight truncate">
+                <div className="flex items-center justify-between px-1 py-1 mb-1.5 gap-1">
+                  <div className="flex items-center gap-1.5 min-w-0 flex-1">
+                    <span className={`w-2 h-2 rounded-full shrink-0 ${col.dotColor}`} />
+                    <h2
+                      title={col.label}
+                      className="text-[11px] font-bold text-slate-800 tracking-tight truncate"
+                    >
                       {col.label}
                     </h2>
                   </div>
-                  <span className="w-5 h-5 shrink-0 rounded-full bg-white text-slate-700 text-[11px] font-bold flex items-center justify-center shadow-2xs border border-slate-200">
+                  <span className="w-4.5 h-4.5 shrink-0 rounded-full bg-white text-slate-700 text-[10px] font-bold flex items-center justify-center shadow-2xs border border-slate-200">
                     {columnLeads.length}
                   </span>
                 </div>
@@ -122,10 +163,10 @@ export function LeadBoardView({
                   ) : (
                 columnLeads.map((lead) => {
                   const isUrgent = lead.priority === "urgent" || lead.priority === "high";
-                  const currentStageIndex = PIPELINE_COLUMNS.findIndex((c) => c.id === lead.status);
+                  const currentStageIndex = activeColumns.findIndex((c) => c.id === lead.status);
                   const nextStage =
-                    currentStageIndex >= 0 && currentStageIndex < PIPELINE_COLUMNS.length - 1
-                      ? PIPELINE_COLUMNS[currentStageIndex + 1]
+                    currentStageIndex >= 0 && currentStageIndex < activeColumns.length - 1
+                      ? activeColumns[currentStageIndex + 1]
                       : null;
 
                   return (
@@ -145,6 +186,8 @@ export function LeadBoardView({
                           className={`text-[9px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider ${
                             lead.opportunityType === "Internship"
                               ? "bg-purple-50 text-purple-700 border border-purple-200"
+                              : lead.opportunityType === "Course"
+                              ? "bg-indigo-50 text-indigo-700 border border-indigo-200"
                               : "bg-blue-50 text-blue-700 border border-blue-200"
                           }`}
                         >
@@ -217,7 +260,7 @@ export function LeadBoardView({
                         ) : (
                           <div className="w-full flex items-center justify-center gap-1 py-1 px-2 rounded-md text-[11px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-200">
                             <CheckCircle2 size={12} className="text-emerald-600" />
-                            <span>Candidate Converted</span>
+                            <span>{lead.opportunityType === "Course" ? "Enrolled & Active" : "Candidate Converted"}</span>
                           </div>
                         )}
                       </div>

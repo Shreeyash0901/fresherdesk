@@ -2,7 +2,7 @@ import Database from "better-sqlite3";
 import fs from "node:fs";
 import path from "node:path";
 import { hashPassword } from "../lib/auth/password";
-import { allOpportunities } from "../lib/fresherdesk-data";
+import { allOpportunities, courses } from "../lib/fresherdesk-data";
 
 function runSeed() {
   console.log("🌱 Starting FresherDesk database seed...");
@@ -146,6 +146,41 @@ function runSeed() {
       opp.activeApplicationUrl || null,
       opp.sourceStatus || "active",
       opp.isImported ? 1 : 0
+    );
+  }
+
+  // Seed courses into opportunities table so enrollments are recognized
+  for (const c of courses) {
+    insertOpportunity.run(
+      `course_${c.slug}`,
+      null,
+      "FresherDesk Academy",
+      "FD",
+      c.title,
+      c.shortTitle,
+      "Course",
+      c.category,
+      "Remote",
+      "published",
+      JSON.stringify(c.skills || []),
+      `${c.weeks} weeks (${c.lessons} lessons)`,
+      c.summary,
+      c.tone || "lime",
+      c.category,
+      0,
+      0,
+      0,
+      1,
+      null,
+      null,
+      "Certificate Included",
+      null,
+      null,
+      null,
+      JSON.stringify(c.outcomes || []),
+      `/courses/${c.slug}`,
+      "active",
+      0
     );
   }
 
