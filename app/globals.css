@@ -37,3 +37,40 @@
 .review-tab-btn.active{background:#18a344;border-color:#18a344;color:#fff}
 .review-tab-btn.exit{border-color:#e2e8f0;color:#64748b}
 .review-tab-btn.exit:hover{background:#fee2e2;border-color:#f87171;color:#b91c1c}
+
+/* Mobile Promo Section Phone Scaling */
+.mobile-promo {
+  max-width: 1192px !important;
+  gap: 48px !important;
+  align-items: center !important;
+  padding-top: 50px !important;
+  padding-bottom: 70px !important;
+}
+.mobile-promo-art {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+}
+.mobile-promo-phones {
+  width: 100% !important;
+  max-width: 607px !important;
+  height: auto !important;
+  display: block !important;
+  filter: drop-shadow(0 28px 40px rgba(18, 41, 27, 0.16)) !important;
+  transition: transform 0.3s ease;
+}
+.mobile-promo-phones:hover {
+  transform: translateY(-4px);
+}
+@media (max-width: 950px) {
+  .mobile-promo-phones {
+    max-width: 420px !important;
+  }
+}
+@media (max-width: 640px) {
+  .mobile-promo-phones {
+    max-width: 320px !important;
+  }
+}
+

@@ -56,7 +56,7 @@ export function NewLeadModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="fd-dialog max-w-lg">
+      <DialogContent className="max-w-lg bg-white p-6 rounded-xl border border-slate-200 shadow-xl">
         <DialogHeader>
           <div className="flex items-center gap-2 mb-1">
             <span className="p-1.5 rounded-md bg-blue-50 text-blue-700">
@@ -84,7 +84,7 @@ export function NewLeadModal({
               Associated Job / Internship <span className="text-rose-500">*</span>
             </label>
             <Select value={opportunityId} onValueChange={setOpportunityId}>
-              <SelectTrigger className="h-10 text-xs bg-slate-50 border-slate-200">
+              <SelectTrigger className="w-full h-10 text-xs bg-slate-50 border-slate-200">
                 <SelectValue placeholder="Select an opportunity" />
               </SelectTrigger>
               <SelectContent className="max-h-56">
@@ -145,7 +145,7 @@ export function NewLeadModal({
                 Assign Recruiter
               </label>
               <Select value={assignedTo} onValueChange={setAssignedTo}>
-                <SelectTrigger className="h-9 text-xs bg-slate-50 border-slate-200">
+                <SelectTrigger className="w-full h-9 text-xs bg-slate-50 border-slate-200">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -166,7 +166,7 @@ export function NewLeadModal({
                 Pipeline Stage
               </label>
               <Select value={status} onValueChange={setStatus}>
-                <SelectTrigger className="h-9 text-xs bg-slate-50 border-slate-200">
+                <SelectTrigger className="w-full h-9 text-xs bg-slate-50 border-slate-200">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -185,7 +185,7 @@ export function NewLeadModal({
                 Priority Tier
               </label>
               <Select value={priority} onValueChange={setPriority}>
-                <SelectTrigger className="h-9 text-xs bg-slate-50 border-slate-200">
+                <SelectTrigger className="w-full h-9 text-xs bg-slate-50 border-slate-200">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>

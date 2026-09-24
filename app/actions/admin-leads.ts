@@ -21,7 +21,7 @@ export type AdminLeadListItem = {
   opportunityId: string;
   opportunityTitle: string;
   companyName: string;
-  opportunityType: "Job" | "Internship" | "Course";
+  opportunityType: "Job" | "Internship" | "Course" | "Workshop";
   notes: string | null;
   createdAt: string;
   updatedAt: string;
@@ -39,6 +39,7 @@ export type LeadMetrics = {
   jobCount: number;
   internshipCount: number;
   courseCount: number;
+  workshopCount: number;
 };
 
 export async function getAdminLeads(params?: {
@@ -96,6 +97,7 @@ export async function getAdminLeads(params?: {
     jobCount: allLeads.filter((l) => l.opportunityType === "Job").length,
     internshipCount: allLeads.filter((l) => l.opportunityType === "Internship").length,
     courseCount: allLeads.filter((l) => l.opportunityType === "Course").length,
+    workshopCount: allLeads.filter((l) => l.opportunityType === "Workshop" || l.source === "workshop_popup").length,
   };
 
   // Filter based on role (recruiter only sees assigned unless admin/editor)

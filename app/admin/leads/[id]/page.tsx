@@ -51,6 +51,10 @@ export default async function AdminLeadDetailPage({
               className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
                 lead.opportunityType === "Internship"
                   ? "bg-purple-100 text-purple-700 border border-purple-200"
+                  : lead.opportunityType === "Course"
+                  ? "bg-indigo-100 text-indigo-700 border border-indigo-200"
+                  : lead.opportunityType === "Workshop"
+                  ? "bg-emerald-100 text-emerald-700 border border-emerald-200"
                   : "bg-blue-100 text-blue-700 border border-blue-200"
               }`}
             >

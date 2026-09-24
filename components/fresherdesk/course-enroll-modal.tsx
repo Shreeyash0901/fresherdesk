@@ -51,7 +51,7 @@ export function CourseEnrollModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="fd-dialog max-w-lg">
+      <DialogContent className="max-w-lg bg-white p-6 rounded-xl border border-slate-200 shadow-xl">
         <DialogHeader>
           <div className="flex items-center gap-2 mb-1">
             <span className="px-2 py-0.5 text-[11px] font-bold tracking-wide uppercase rounded bg-indigo-100 text-indigo-800 flex items-center gap-1">

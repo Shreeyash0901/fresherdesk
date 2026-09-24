@@ -349,7 +349,7 @@ export function UsersRolesClient({
       {/* Reset Password Modal */}
       {resetModalUser && (
         <Dialog open={Boolean(resetModalUser)} onOpenChange={() => setResetModalUser(null)}>
-          <DialogContent className="fd-dialog max-w-sm">
+          <DialogContent className="max-w-sm bg-white p-6 rounded-xl border border-slate-200 shadow-xl">
             <DialogHeader>
               <DialogTitle className="text-base font-bold text-slate-900 flex items-center gap-2">
                 <KeyRound size={17} /> Reset Password
@@ -423,7 +423,7 @@ function CreateUserModal({ open, onOpenChange }: { open: boolean; onOpenChange: 
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="fd-dialog max-w-md">
+      <DialogContent className="max-w-md bg-white p-6 rounded-xl border border-slate-200 shadow-xl">
         <DialogHeader>
           <DialogTitle className="text-base font-bold text-slate-900 flex items-center gap-2">
             <UserPlus size={18} /> Add New Team Member

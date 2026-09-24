@@ -4,12 +4,16 @@ import { ArrowRight, BookOpen, Code2, Briefcase, Rocket, Layers3, ArrowUpRight, 
 import { PublicShell } from "@/components/fresherdesk/public-shell";
 import { CourseCard, CheckList, SectionTitle } from "@/components/fresherdesk/common";
 import { HomeSearch } from "@/components/fresherdesk/home-search";
+import { WorkshopPopup } from "@/components/fresherdesk/workshop-popup";
 import { getCourses } from "@/lib/fresherdesk-data";
 
 export default async function Home() {
   const courses = await getCourses();
   return (
     <PublicShell>
+      {/* Promotional Workshop Lead Capture Popup */}
+      <WorkshopPopup />
+
       <main>
         {/* Hero */}
         <section className="hero">

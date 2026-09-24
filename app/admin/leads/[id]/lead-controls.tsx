@@ -38,6 +38,7 @@ export function LeadManageControls({
   const [message, setMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
 
   const isCourse = opportunityType === "Course";
+  const isWorkshop = opportunityType === "Workshop";
 
   async function handleStatusChange(val: string) {
     setStatus(val);
@@ -107,7 +108,11 @@ export function LeadManageControls({
     <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-xs space-y-5">
       <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
         <ShieldCheck size={18} className="text-slate-400" />
-        {isCourse ? "Course Admissions & Enrollment Controls" : "Lead Action Controls"}
+        {isWorkshop
+          ? "Workshop Registration & Funnel Controls"
+          : isCourse
+          ? "Course Admissions & Enrollment Controls"
+          : "Lead Action Controls"}
       </h2>
 
       {message && (
@@ -135,7 +140,17 @@ export function LeadManageControls({
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            {isCourse ? (
+            {isWorkshop ? (
+              <>
+                <SelectItem value="new">Potential (Phone Captured)</SelectItem>
+                <SelectItem value="contacted">Contacted / Follow-up</SelectItem>
+                <SelectItem value="screening">Form Started / In Progress</SelectItem>
+                <SelectItem value="shortlisted">VIP Waitlist</SelectItem>
+                <SelectItem value="selected">Spot Confirmed / Registered</SelectItem>
+                <SelectItem value="rejected">Rejected</SelectItem>
+                <SelectItem value="withdrawn">Abandoned / Dropped</SelectItem>
+              </>
+            ) : isCourse ? (
               <>
                 <SelectItem value="new">New Inquiry</SelectItem>
                 <SelectItem value="contacted">Contacted / Intro Call</SelectItem>

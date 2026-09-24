@@ -97,6 +97,46 @@ const COURSE_PIPELINE_COLUMNS = [
   },
 ];
 
+// 3. Workshop Leads & Funnel Stages (Mobile Capture -> Form -> Spot Reserved)
+const WORKSHOP_PIPELINE_COLUMNS = [
+  {
+    id: "new",
+    label: "Potential (Phone Only)",
+    dotColor: "bg-amber-500",
+    headerBg: "border-amber-200 text-amber-900",
+  },
+  {
+    id: "contacted",
+    label: "Contacted / Follow-up",
+    dotColor: "bg-sky-500",
+    headerBg: "border-sky-200 text-sky-900",
+  },
+  {
+    id: "screening",
+    label: "Form Started",
+    dotColor: "bg-blue-600",
+    headerBg: "border-blue-200 text-blue-900",
+  },
+  {
+    id: "shortlisted",
+    label: "VIP Waitlist",
+    dotColor: "bg-purple-600",
+    headerBg: "border-purple-200 text-purple-900",
+  },
+  {
+    id: "selected",
+    label: "Spot Confirmed",
+    dotColor: "bg-emerald-600",
+    headerBg: "border-emerald-200 text-emerald-900",
+  },
+  {
+    id: "withdrawn",
+    label: "Abandoned / Cancelled",
+    dotColor: "bg-rose-500",
+    headerBg: "border-rose-200 text-rose-900",
+  },
+];
+
 export function LeadBoardView({
   leads,
   type = "all",
@@ -107,7 +147,12 @@ export function LeadBoardView({
   const router = useRouter();
   const [movingId, setMovingId] = useState<string | null>(null);
 
-  const activeColumns = type === "Course" ? COURSE_PIPELINE_COLUMNS : JOB_PIPELINE_COLUMNS;
+  const activeColumns =
+    type === "Course"
+      ? COURSE_PIPELINE_COLUMNS
+      : type === "Workshop"
+      ? WORKSHOP_PIPELINE_COLUMNS
+      : JOB_PIPELINE_COLUMNS;
 
   async function handleMoveStage(leadId: string, nextStatus: string) {
     setMovingId(leadId);
@@ -188,6 +233,8 @@ export function LeadBoardView({
                               ? "bg-purple-50 text-purple-700 border border-purple-200"
                               : lead.opportunityType === "Course"
                               ? "bg-indigo-50 text-indigo-700 border border-indigo-200"
+                              : lead.opportunityType === "Workshop"
+                              ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
                               : "bg-blue-50 text-blue-700 border border-blue-200"
                           }`}
                         >

@@ -85,6 +85,7 @@ export function LeadsPipelineClient({
     { id: "Job", label: "Job Inquiries", count: metrics.jobCount ?? 0 },
     { id: "Internship", label: "Internship Inquiries", count: metrics.internshipCount ?? 0 },
     { id: "Course", label: "Course Enrollments", count: metrics.courseCount ?? 0 },
+    { id: "Workshop", label: "Workshop Leads", count: metrics.workshopCount ?? 0 },
   ];
 
   return (
@@ -99,6 +100,8 @@ export function LeadsPipelineClient({
               ? "Internship Inquiries Pipeline"
               : currentType === "Course"
               ? "Course Enrollments Pipeline"
+              : currentType === "Workshop"
+              ? "Workshop Leads Pipeline (Funnel)"
               : "Lead pipeline"}
           </h1>
           <p className="text-xs text-slate-500 mt-0.5">
@@ -192,6 +195,8 @@ export function LeadsPipelineClient({
                     ? "bg-purple-50 text-purple-900 border-purple-300 shadow-2xs"
                     : tab.id === "Course"
                     ? "bg-indigo-50 text-indigo-900 border-indigo-300 shadow-2xs"
+                    : tab.id === "Workshop"
+                    ? "bg-emerald-50 text-emerald-900 border-emerald-300 shadow-2xs"
                     : "bg-slate-900 text-white border-slate-900 shadow-2xs"
                   : "bg-white text-slate-600 border-slate-200 hover:bg-slate-50 hover:text-slate-900"
               }`}
@@ -265,6 +270,8 @@ export function LeadsPipelineClient({
                               ? "bg-purple-100 text-purple-800"
                               : lead.opportunityType === "Course"
                               ? "bg-indigo-100 text-indigo-800"
+                              : lead.opportunityType === "Workshop"
+                              ? "bg-emerald-100 text-emerald-800"
                               : "bg-blue-100 text-blue-800"
                           }`}
                         >
