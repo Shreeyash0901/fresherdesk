@@ -56,11 +56,11 @@ export function CourseEnrollModal({
           <div className="flex items-center gap-2 mb-1">
             <span className="px-2 py-0.5 text-[11px] font-bold tracking-wide uppercase rounded bg-indigo-100 text-indigo-800 flex items-center gap-1">
               <Sparkles size={12} />
-              Course Enrollment
+              Course Inquiry
             </span>
           </div>
           <DialogTitle className="text-xl font-bold text-slate-900">
-            Enroll in {course.title}
+            Inquire About {course.title}
           </DialogTitle>
           <DialogDescription className="text-xs text-slate-500">
             {course.category} • {course.lessons} lessons • {course.weeks} weeks
@@ -72,7 +72,7 @@ export function CourseEnrollModal({
             <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
               <CheckCircle2 size={28} />
             </div>
-            <h3 className="text-lg font-bold text-slate-900">Enrollment Successful!</h3>
+            <h3 className="text-lg font-bold text-slate-900">Inquiry Received!</h3>
             <p className="text-sm text-slate-600 max-w-sm">{result.message}</p>
             <button
               type="button"
@@ -90,7 +90,7 @@ export function CourseEnrollModal({
             <div className="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center">
               <Info size={28} />
             </div>
-            <h3 className="text-base font-bold text-slate-900">Already Registered</h3>
+            <h3 className="text-base font-bold text-slate-900">Inquiry Already Submitted</h3>
             <p className="text-xs text-slate-600 max-w-sm">{result.message}</p>
             <button
               type="button"
@@ -201,7 +201,7 @@ export function CourseEnrollModal({
                 className="button button-green compact"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? "Enrolling..." : "Enroll & Start Learning"}
+                {isSubmitting ? "Submitting..." : "Submit Inquiry"}
                 <Send size={14} />
               </button>
             </div>

@@ -58,16 +58,12 @@ export function WorkshopPopup({
   const [error, setError] = useState<string | null>(null);
 
   // Display timer logic on Mount
-  // Popup always shows 3 seconds after a page load/refresh.
-  // sessionStorage dismissal only lasts the current tab session.
+  // Popup shows 3 seconds after page load.
+  // If cancelled/closed, it re-opens after 1 minute (60s) to give another opportunity to capture the number.
   useEffect(() => {
     if (!config.enabled) return;
 
     try {
-      // Only skip if already dismissed in this session (this tab/window)
-      const dismissedThisSession = sessionStorage.getItem(SESSION_KEY_DISMISSED);
-      if (dismissedThisSession) return;
-
       // Check if user previously completed step 1 (persists across refreshes)
       const savedLeadId = localStorage.getItem(STORAGE_KEY_ACTIVE_LEAD);
       const savedPhone = localStorage.getItem(STORAGE_KEY_SAVED_PHONE);
@@ -77,6 +73,7 @@ export function WorkshopPopup({
         setStep("form");
       }
 
+      // Initial popup timer (default 3 seconds after page load)
       const timer = setTimeout(() => {
         setIsOpen(true);
       }, (config.displayDelaySeconds || 3) * 1000);
@@ -87,13 +84,15 @@ export function WorkshopPopup({
     }
   }, [config]);
 
-  // Handle Close / Dismissal — only for the current session
+  // Handle Close / Dismissal — re-pops up after 1 minute (60 seconds)
   function handleDismiss() {
     setIsOpen(false);
-    try {
-      sessionStorage.setItem(SESSION_KEY_DISMISSED, "1");
-    } catch {
-      // Ignore
+    
+    // Only schedule a re-popup if user hasn't successfully completed registration
+    if (step !== "success") {
+      setTimeout(() => {
+        setIsOpen(true);
+      }, 60 * 1000); // 1 minute (60,000ms)
     }
   }
 

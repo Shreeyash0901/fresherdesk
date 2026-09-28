@@ -84,7 +84,7 @@ export function LeadsPipelineClient({
     { id: "all", label: "All Inquiries", count: metrics.total },
     { id: "Job", label: "Job Inquiries", count: metrics.jobCount ?? 0 },
     { id: "Internship", label: "Internship Inquiries", count: metrics.internshipCount ?? 0 },
-    { id: "Course", label: "Course Enrollments", count: metrics.courseCount ?? 0 },
+    { id: "Course", label: "Course Inquiries", count: metrics.courseCount ?? 0 },
     { id: "Workshop", label: "Workshop Leads", count: metrics.workshopCount ?? 0 },
   ];
 
@@ -99,7 +99,7 @@ export function LeadsPipelineClient({
               : currentType === "Internship"
               ? "Internship Inquiries Pipeline"
               : currentType === "Course"
-              ? "Course Enrollments Pipeline"
+              ? "Course Inquiries Pipeline"
               : currentType === "Workshop"
               ? "Workshop Leads Pipeline (Funnel)"
               : "Lead pipeline"}

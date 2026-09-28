@@ -12,7 +12,18 @@ export async function getDbOpportunities(options?: {
 }): Promise<Opportunity[]> {
   try {
     const db = getDb();
-    const query = db
+    const targetStatus = options?.status ?? "published";
+    const conditions = [];
+
+    if (targetStatus && targetStatus !== "all") {
+      conditions.push(eq(opportunities.status, targetStatus as "published" | "draft" | "expired" | "archived"));
+    }
+
+    if (options?.type) {
+      conditions.push(eq(opportunities.type, options.type));
+    }
+
+    let query = db
       .select({
         id: opportunities.id,
         company: opportunities.companyName,
@@ -41,13 +52,18 @@ export async function getDbOpportunities(options?: {
         sourceStatus: opportunities.sourceStatus,
         isImported: opportunities.isImported,
       })
-      .from(opportunities)
-      .orderBy(desc(opportunities.createdAt));
+      .from(opportunities);
 
-    const rows = query.all();
+    if (conditions.length === 1) {
+      query = (query as any).where(conditions[0]);
+    } else if (conditions.length > 1) {
+      query = (query as any).where(and(...conditions));
+    }
 
-    if (!rows || rows.length === 0) {
-      return allOpportunities;
+    const rows = (query as any).orderBy(desc(opportunities.createdAt)).all();
+
+    if (!rows) {
+      return [];
     }
 
     return rows.map((r) => {

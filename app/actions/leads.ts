@@ -141,7 +141,7 @@ export async function submitLeadApplicationAction(
       success: true,
       message:
         opp.type === "Course"
-          ? `You have successfully enrolled in "${opp.title}"! Our admissions team will reach out with course details and next steps.`
+          ? `Thank you for your inquiry regarding "${opp.title}"! Our admissions counselor will contact you shortly with the syllabus, schedule, and next steps.`
           : `Your application for "${opp.title}" has been successfully submitted! Our talent team will review your profile shortly.`,
     };
   } catch (error: any) {

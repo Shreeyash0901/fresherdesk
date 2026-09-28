@@ -56,7 +56,7 @@ export function Opportunities({
   const statusParam = searchParams.get("status");
   const isReviewMode = statusParam === "all" || statusParam === "unverified" || statusParam === "expired";
 
-  const sourceOpportunities = initialOpportunities || allOpportunities;
+  const sourceOpportunities = initialOpportunities ?? [];
 
   // Data source based on review mode
   const dataset = useMemo(() => {
@@ -93,7 +93,7 @@ export function Opportunities({
 
   // Selected opportunity for detail modal
   const selectedOpportunityId = searchParams.get("opportunity");
-  const selectedOpportunity = allOpportunities.find(
+  const selectedOpportunity = sourceOpportunities.find(
     o => o.id === selectedOpportunityId && o.type === type
   );
 

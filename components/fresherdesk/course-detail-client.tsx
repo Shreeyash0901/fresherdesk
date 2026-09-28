@@ -88,11 +88,11 @@ export function CourseDetailClient({ course }: { course: Course }) {
               className="button button-green w-full flex items-center justify-center gap-2"
               onClick={() => setEnrollModalOpen(true)}
             >
-              <span>Enroll now</span>
+              <span>Inquire now</span>
               <ArrowRight size={17} />
             </button>
 
-            <p className="preview-note">Join thousands of students learning industry-ready tech skills.</p>
+            <p className="preview-note">Get course syllabus, batch schedules & pricing details from our advisors.</p>
           </aside>
         </div>
       </main>
